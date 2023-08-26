@@ -1,0 +1,13 @@
+name: versionUpdatePrompt
+version: '${project.version}'
+main: aplini.versionupdateprompt.VersionUpdatePrompt
+api-version: '1.19'
+
+softdepend:
+  - ViaVersion
+  - AuthMe
+
+permissions:
+  versionUpdatePrompt.updateMessage:
+    description: 接收更新提示消息
+    default: true
