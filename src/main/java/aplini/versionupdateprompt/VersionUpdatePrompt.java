@@ -6,9 +6,15 @@ import com.viaversion.viaversion.api.Via;
 import com.viaversion.viaversion.api.ViaAPI;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -19,6 +25,7 @@ public final class VersionUpdatePrompt extends JavaPlugin implements Listener {
     static private ViaAPI via;
     static String serverVerName;
     static int serverVer;
+    static List<UUID> playerList = new ArrayList<>();
 
     @Override // 插件加载
     public void onLoad() {
@@ -68,6 +75,12 @@ public final class VersionUpdatePrompt extends JavaPlugin implements Listener {
             return;
         }
 
+        // 玩家是否已经在队列中
+        if(playerList.contains(player.getUniqueId())){
+            return;
+        }
+        playerList.add(player.getUniqueId());
+
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.submit(() -> {
             try {
@@ -75,7 +88,9 @@ public final class VersionUpdatePrompt extends JavaPlugin implements Listener {
             } catch (InterruptedException ignored) {}
 
             // 如果玩家已经离线, 则不运行
-            if(!player.isOnline()){return;}
+            if(!player.isOnline()){
+                return;
+            }
 
             // 协议版本和版本名称
             int playerVer = via.getPlayerVersion(player.getUniqueId());
@@ -100,5 +115,12 @@ public final class VersionUpdatePrompt extends JavaPlugin implements Listener {
             }
         });
         executor.shutdown();
+    }
+
+    // 玩家退出事件
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onPlayerQuitEvent(PlayerQuitEvent event) {
+        // 从队列中移除玩家
+        playerList.remove(event.getPlayer().getUniqueId());
     }
 }
