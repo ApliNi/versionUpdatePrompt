@@ -3,6 +3,7 @@
 
 下载: https://modrinth.com/plugin/versionupdateprompt/
 
+**配置**
 ```yaml
 # 消息
 message:
@@ -10,7 +11,7 @@ message:
   # %serverVersion% - 服务器版本
 
   # 如果玩家的版本低于服务器版本
-  lower: '§6IpacEL §f> §b新的 Minecraft§a[%serverVersion%] §b版本可用!'
+  lower: '§6IpacEL §f> §b新的 Minecraft §a[%serverVersion%] §b版本可用!'
   # 如果版本相等
   equal: ''
   # 如果玩家的版本高于服务器版本
@@ -25,7 +26,16 @@ server:
   delay: 4000
 
   # 默认自动检查版本
-  serverVer: -1
-  serverVerName: ''
+  #serverVer: -1
+  #serverVerName: ''
+
+```
+
+**权限**
+```yaml
+permissions:
+  versionUpdatePrompt.updateMessage:
+    description: 接收更新提示消息
+    default: true
 
 ```
