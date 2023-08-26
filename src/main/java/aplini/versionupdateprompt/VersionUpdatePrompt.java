@@ -63,6 +63,11 @@ public final class VersionUpdatePrompt extends JavaPlugin implements Listener {
     // 发送版本消息
     public static void sendVersionMessages(Player player) {
 
+        // 显示更新消息的权限
+        if(!player.hasPermission("versionUpdatePrompt.updateMessage")){
+            return;
+        }
+
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.submit(() -> {
             try {
