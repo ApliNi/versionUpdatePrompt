@@ -1,3 +1,9 @@
+[postbg]bg5.png[/postbg][markdown]
+
+https://github.com/ApliNi/versionUpdatePrompt
+
+---
+
 # versionUpdatePrompt
 如果客户端版本低于服务器版本, 则发出提示.
 
@@ -45,3 +51,14 @@ permissions:
 ### 依赖
 - ViaVersion (必须)
 - AuthMe (可选)
+
+
+---
+
+### MCBBS
+本插件所用所有代码均为原创,不存在借用/抄袭等行为
+本插件为非盈利性插件，免费发布，严禁销售和转卖
+
+插件没有指令
+
+[/markdown]
